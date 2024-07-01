@@ -8,7 +8,7 @@ class HomeScreenView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.grey.shade300,
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Column(
@@ -19,7 +19,6 @@ class HomeScreenView extends StatelessWidget {
               fontSize: 15.px,
               color: Colors.grey.shade400,
               fontWeight: FontWeight.w600,
-
             ),
             ),
             Text('Carlos Darras',

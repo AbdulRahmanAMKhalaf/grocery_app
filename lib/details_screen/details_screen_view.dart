@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:grocery_app/details_screen/details_Screen_Content.dart';
 
 class DetailsScreenView extends StatelessWidget {
@@ -8,7 +9,7 @@ class DetailsScreenView extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Scaffold(
       backgroundColor: Colors.grey.shade200,
-      body: DetailsScreenContent(index: index,),
+      body: DetailsScreenContent(index: index,).animate().then(duration: 200.ms).fadeIn(duration: 800.ms),
     );
   }
 }

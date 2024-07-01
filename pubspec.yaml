@@ -33,6 +33,7 @@ dependencies:
   hexcolor: ^3.0.1
   responsive_sizer: ^3.3.1
   smooth_page_indicator: ^1.1.0
+  flutter_animate: ^4.5.0
 
 
   # The following adds the Cupertino Icons font to your application.

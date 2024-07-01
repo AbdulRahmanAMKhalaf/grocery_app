@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:grocery_app/home_model/home_model.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-class DetailsScreenContent extends StatelessWidget {
+class DetailsScreenContent extends StatefulWidget {
   const DetailsScreenContent({super.key,required this.index});
   final int index;
+
+  @override
+  State<DetailsScreenContent> createState() => _DetailsScreenContentState();
+}
+
+class _DetailsScreenContentState extends State<DetailsScreenContent> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -26,11 +33,11 @@ class DetailsScreenContent extends StatelessWidget {
                       height: 150,
                       child: Image(
                         image:AssetImage(
-                            homeList[index].image
+                            homeList[widget.index].image
                         ),
                       ),
                     ),
-                  ),
+                  ).animate().shimmer().then().scale().shake(),
                   Padding(
                     padding:  EdgeInsets.all(2.w),
                     child: Row (
@@ -41,7 +48,7 @@ class DetailsScreenContent extends StatelessWidget {
                             },
                             icon:Icon(Icons.arrow_back_ios_new_outlined,color: Colors.grey.shade600,size: 25.px,)),
                         const Spacer(),
-                        Text(homeList[index].type,
+                        Text(homeList[widget.index].type,
                           style: TextStyle(
                               fontSize: 22.px,
                               fontWeight: FontWeight.w800,
@@ -73,7 +80,7 @@ class DetailsScreenContent extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          Text(homeList[index].name,
+                          Text(homeList[widget.index].name,
                           style: TextStyle(
                             color: Colors.grey.shade700,
                             fontSize: 27.px,
@@ -84,7 +91,7 @@ class DetailsScreenContent extends StatelessWidget {
                           RichText(
                             text: TextSpan(children: [
                               TextSpan(
-                                  text: homeList[index].price,
+                                  text: homeList[widget.index].price,
                                   style: TextStyle(
                                     color: Colors.grey.shade800,
                                     fontWeight: FontWeight.w900,
@@ -102,7 +109,9 @@ class DetailsScreenContent extends StatelessWidget {
                         ],
                       ),
                       SizedBox(height: 2.h,),
-                      Text(homeList[index].text,
+                      Text(homeList[widget.index].text,
+                      maxLines: 7,
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         color: Colors.grey.shade300,
                         fontWeight: FontWeight.w600,
@@ -111,20 +120,23 @@ class DetailsScreenContent extends StatelessWidget {
                       ),
                       ),
                       const Spacer(),
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(25.px),
-                        child: MaterialButton(
-                            onPressed:(){},
-                          height: 6.h,
-                          color: Colors.green.shade400,
-                          minWidth: 80.w,
-                          child: Center(
-                            child: Text('Add to cart',
-                            style: TextStyle(
-                              fontSize: 20.px,
-                              color: Colors.white,
-                              fontWeight: FontWeight.w800,
-                            ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 35.0),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(25.px),
+                          child: MaterialButton(
+                              onPressed:(){},
+                            height: 6.h,
+                            color: Colors.green.shade400,
+                            minWidth: 80.w,
+                            child: Center(
+                              child: Text('Add to cart',
+                              style: TextStyle(
+                                fontSize: 20.px,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w800,
+                              ),
+                              ),
                             ),
                           ),
                         ),
