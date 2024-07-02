@@ -12,7 +12,7 @@ class HomeScreenContent extends StatelessWidget {
       children: [
         Container(
           width: double.infinity,
-          height: 87.h,
+          height: 82.h,
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.vertical(bottom: Radius.circular(30.px)),
@@ -133,13 +133,15 @@ class HomeScreenContent extends StatelessWidget {
             ],
           ),
         ),
-        /*Expanded(
+        GestureDetector(
           child: Container(
+            width: double.infinity,
+            height: 7.h,
             decoration: BoxDecoration(
               color: Colors.grey.shade300,
             ),
           ),
-        ),*/
+        ),
       ],
     );
   }
