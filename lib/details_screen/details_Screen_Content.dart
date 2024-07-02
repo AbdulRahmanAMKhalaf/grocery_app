@@ -125,7 +125,9 @@ class _DetailsScreenContentState extends State<DetailsScreenContent> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(25.px),
                           child: MaterialButton(
-                              onPressed:(){},
+                              onPressed:(){
+
+                              },
                             height: 6.h,
                             color: Colors.green.shade400,
                             minWidth: 80.w,
