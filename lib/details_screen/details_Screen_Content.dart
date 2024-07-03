@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grocery_app/bloc/grocery_bloc.dart';
-import 'package:grocery_app/cart_model/cart_model.dart';
 import 'package:grocery_app/home_model/home_model.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -136,6 +135,7 @@ class DetailsScreenContent extends StatelessWidget {
                           child: MaterialButton(
                             onPressed: () {
                               bloc.add(AddToCartEvent());
+                              Navigator.pop(context);
                             },
                             height: 6.h,
                             color: Colors.green.shade400,

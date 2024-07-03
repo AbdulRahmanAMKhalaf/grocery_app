@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grocery_app/bloc/grocery_bloc.dart';
 import 'package:grocery_app/details_screen/details_screen_view.dart';
@@ -131,66 +132,86 @@ class HomeScreenContent extends StatelessWidget {
             ),
           ],
         ),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: GestureDetector(
-            child: bloc.isDrag
-                ? Container(
-              width: double.infinity,
-              height: 70.h,
-              decoration: BoxDecoration(
-                borderRadius:
-                BorderRadius.vertical(top: Radius.circular(20.px)),
-                color: Colors.grey.shade400.withOpacity(0.95),
-              ),
-              child: ListView.separated(
-                  padding: EdgeInsets.all(12.px),
-                  itemBuilder: (context, index) =>
-                      Row(
-                        children: [
+        BlocBuilder<GroceryBloc, GroceryState>(
+          builder: (context, state) {
+            return Align(
+              alignment: Alignment.bottomCenter,
+              child: GestureDetector(
+                onLongPress: () {
+                  bloc.add(DragEvent());
+                },
+                child: bloc.isDrag
+                    ? Container(
+                  width: double.infinity,
+                  height: 80.h,
+                  decoration: BoxDecoration(
+                    borderRadius:
+                    BorderRadius.vertical(top: Radius.circular(20.px)),
+                    color: Colors.grey.shade400.withOpacity(0.95),
+                  ),
+                  child: ListView.separated(
+                      padding: EdgeInsets.all(15.px),
+                      itemBuilder: (context, index) =>
+                          Container(
+                            width: double.infinity,
+                            height: 11.h,
+                            decoration: BoxDecoration(
+                              color: Colors.black87.withOpacity(0.8),
+                              borderRadius: BorderRadius.circular(20.px)
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(15.px),
+                                    child: Image(
+                                      fit: BoxFit.cover,
+                                      width: 20.w,
+                                      image: AssetImage(bloc.cartList[index].image),
+                                    ),
+                                  ),
+                                  SizedBox(width: 5.w,),
+                                  Text(bloc.cartList[index].name,
+                                    style: TextStyle(fontSize: 25.px,
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.white,),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                      separatorBuilder: (context, index) =>
+                          SizedBox(height: 3.h,),
+                      itemCount: bloc.cartList.length),
+                ).animate().fade(duration: 500.ms).slideY(begin: 1,end: 0)
+                    : Container(
+                  width: double.infinity,
+                  height: 8.h,
+                  decoration: BoxDecoration(
+                    borderRadius:
+                    BorderRadius.vertical(top: Radius.circular(20.px)),
+                    color: Colors.grey.shade800.withOpacity(0.85),
+                  ),
+                  child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      padding: EdgeInsets.all( 12.px),
+                      itemBuilder: (context, index) =>
                           ClipRRect(
                             borderRadius: BorderRadius.circular(15.px),
                             child: Image(
                               fit: BoxFit.cover,
-                              width: 8.w,
+                              width: 12.w,
                               image: AssetImage(bloc.cartList[index].image),
                             ),
                           ),
-                          const Spacer(),
-                          Text(bloc.cartList[index].name,
-                            style: TextStyle(fontSize: 25.px,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.white12,),
-                          ),
-                        ],
-                      ),
-                  separatorBuilder: (context, index) => SizedBox(width: 3.w,),
-                  itemCount: bloc.cartList.length),
-            )
-                : Container(
-              width: double.infinity,
-              height: 8.h,
-              decoration: BoxDecoration(
-                borderRadius:
-                BorderRadius.vertical(top: Radius.circular(20.px)),
-                color: Colors.grey.shade400.withOpacity(0.8),
+                      separatorBuilder: (context, index) =>
+                          SizedBox(width: 3.w,),
+                      itemCount: bloc.cartList.length),
+                ).animate().fade(duration: 800.ms).slideY(begin: 1,end: 0),
               ),
-              child: ListView.separated(
-                  scrollDirection: Axis.horizontal,
-                  padding: EdgeInsets.symmetric(vertical: 10.px),
-                  itemBuilder: (context, index) =>
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(15.px),
-                        child: Image(
-                          fit: BoxFit.cover,
-                          width: 8.w,
-                          image: AssetImage(bloc.cartList[index].image),
-                        ),
-                      ),
-                  separatorBuilder: (context, index) => SizedBox(width: 3.w,),
-                  itemCount: bloc.cartList.length),
-            ),
-          ),
+            );
+          },
         ),
       ],
     );
