@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:grocery_app/bloc/grocery_bloc.dart';
+import 'package:grocery_app/cart_model/cart_model.dart';
 import 'package:grocery_app/home_model/home_model.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-class DetailsScreenContent extends StatefulWidget {
-  const DetailsScreenContent({super.key,required this.index});
+class DetailsScreenContent extends StatelessWidget {
+  const DetailsScreenContent({super.key, required this.index});
+
   final int index;
 
-  @override
-  State<DetailsScreenContent> createState() => _DetailsScreenContentState();
-}
 
-class _DetailsScreenContentState extends State<DetailsScreenContent> {
   @override
   Widget build(BuildContext context) {
+    var bloc=context.read<GroceryBloc>();
+    bloc.index=index;
     return SafeArea(
       child: Stack(
         alignment: Alignment.center,
@@ -25,49 +27,54 @@ class _DetailsScreenContentState extends State<DetailsScreenContent> {
                 height: 42.h,
                 width: double.infinity,
                 color: Colors.grey.shade200,
-              child:Stack(
-                children: [
-                  Center(
-                    child: SizedBox(
-                      width: 1000,
-                      height: 150,
-                      child: Image(
-                        image:AssetImage(
-                            homeList[widget.index].image
+                child: Stack(
+                  children: [
+                    Center(
+                      child: SizedBox(
+                        width: 1000,
+                        height: 150,
+                        child: Image(
+                          image: AssetImage(homeList[index].image),
                         ),
                       ),
-                    ),
-                  ).animate().shimmer().then().scale().shake(),
-                  Padding(
-                    padding:  EdgeInsets.all(2.w),
-                    child: Row (
-                      children: [
-                        IconButton(
-                            onPressed:(){
-                              Navigator.pop(context);
-                            },
-                            icon:Icon(Icons.arrow_back_ios_new_outlined,color: Colors.grey.shade600,size: 25.px,)),
-                        const Spacer(),
-                        Text(homeList[widget.index].type,
-                          style: TextStyle(
-                              fontSize: 22.px,
-                              fontWeight: FontWeight.w800,
-                              color: Colors.grey.shade500
+                    ).animate().shimmer().then().scale().shake(),
+                    Padding(
+                      padding: EdgeInsets.all(2.w),
+                      child: Row(
+                        children: [
+                          IconButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              icon: Icon(
+                                Icons.arrow_back_ios_new_outlined,
+                                color: Colors.grey.shade600,
+                                size: 25.px,
+                              )),
+                          const Spacer(),
+                          Text(
+                            homeList[index].type,
+                            style: TextStyle(
+                                fontSize: 22.px,
+                                fontWeight: FontWeight.w800,
+                                color: Colors.grey.shade500),
                           ),
-                        ),
-                        const Spacer(),
-                        IconButton.filled(
-                            onPressed: (){},
-                            style: ButtonStyle(
-                                backgroundColor: WidgetStatePropertyAll(Colors.grey.shade300)
-                            ),
-                            icon:Icon(Icons.shopping_cart,size: 20.px,
-                              color: Colors.white,)),
-                      ],
+                          const Spacer(),
+                          IconButton.filled(
+                              onPressed: () {},
+                              style: ButtonStyle(
+                                  backgroundColor: WidgetStatePropertyAll(
+                                      Colors.grey.shade300)),
+                              icon: Icon(
+                                Icons.shopping_cart,
+                                size: 20.px,
+                                color: Colors.white,
+                              )),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
               ),
               Container(
                 height: 56.h,
@@ -80,18 +87,18 @@ class _DetailsScreenContentState extends State<DetailsScreenContent> {
                     children: [
                       Row(
                         children: [
-                          Text(homeList[widget.index].name,
-                          style: TextStyle(
-                            color: Colors.grey.shade700,
-                            fontSize: 27.px,
-                            fontWeight: FontWeight.w800
-                          ),
+                          Text(
+                            homeList[index].name,
+                            style: TextStyle(
+                                color: Colors.grey.shade700,
+                                fontSize: 27.px,
+                                fontWeight: FontWeight.w800),
                           ),
                           const Spacer(),
                           RichText(
                             text: TextSpan(children: [
                               TextSpan(
-                                  text: homeList[widget.index].price,
+                                  text: homeList[index].price,
                                   style: TextStyle(
                                     color: Colors.grey.shade800,
                                     fontWeight: FontWeight.w900,
@@ -108,16 +115,18 @@ class _DetailsScreenContentState extends State<DetailsScreenContent> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 2.h,),
-                      Text(homeList[widget.index].text,
-                      maxLines: 7,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        color: Colors.grey.shade300,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18.px,
-                        height: 0.22.h
+                      SizedBox(
+                        height: 2.h,
                       ),
+                      Text(
+                        homeList[index].text,
+                        maxLines: 7,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            color: Colors.grey.shade300,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 18.px,
+                            height: 0.22.h),
                       ),
                       const Spacer(),
                       Padding(
@@ -125,19 +134,20 @@ class _DetailsScreenContentState extends State<DetailsScreenContent> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(25.px),
                           child: MaterialButton(
-                              onPressed:(){
-
-                              },
+                            onPressed: () {
+                              bloc.add(AddToCartEvent());
+                            },
                             height: 6.h,
                             color: Colors.green.shade400,
                             minWidth: 80.w,
                             child: Center(
-                              child: Text('Add to cart',
-                              style: TextStyle(
-                                fontSize: 20.px,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w800,
-                              ),
+                              child: Text(
+                                'Add to cart',
+                                style: TextStyle(
+                                  fontSize: 20.px,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w800,
+                                ),
                               ),
                             ),
                           ),
@@ -154,33 +164,45 @@ class _DetailsScreenContentState extends State<DetailsScreenContent> {
             child: Container(
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15.px),
-                  color: Colors.grey.shade200
-              ),
+                  color: Colors.grey.shade200),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   IconButton.filled(
-                      onPressed:(){},
+                      onPressed: () {},
                       style: const ButtonStyle(
-                          backgroundColor: WidgetStatePropertyAll(Colors.white)
-                      ),
-                      icon: Icon(Icons.remove,color: Colors.red,size: 25.px,)),
-                  SizedBox(width: 1.w,),
-                  Text('1',
+                          backgroundColor:
+                              WidgetStatePropertyAll(Colors.white)),
+                      icon: Icon(
+                        Icons.remove,
+                        color: Colors.red,
+                        size: 25.px,
+                      )),
+                  SizedBox(
+                    width: 1.w,
+                  ),
+                  Text(
+                    '1',
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 20.px,
                       fontWeight: FontWeight.w800,
                     ),
                   ),
-                  SizedBox(width: 1.w,),
+                  SizedBox(
+                    width: 1.w,
+                  ),
                   IconButton.filled(
-                      onPressed:(){},
+                      onPressed: () {},
                       style: const ButtonStyle(
-                          backgroundColor: WidgetStatePropertyAll(Colors.white)
-                      ),
-                      icon: Icon(Icons.add,color: Colors.green,size: 25.px,))
+                          backgroundColor:
+                              WidgetStatePropertyAll(Colors.white)),
+                      icon: Icon(
+                        Icons.add,
+                        color: Colors.green,
+                        size: 25.px,
+                      ))
                 ],
               ),
             ),

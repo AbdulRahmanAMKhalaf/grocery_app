@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:grocery_app/bloc/grocery_bloc.dart';
 import 'package:grocery_app/home_screen/home_screen_content.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -43,7 +45,9 @@ class HomeScreenView extends StatelessWidget {
           ),
         ],
       ),
-      body: const HomeScreenContent(),
+      body: BlocProvider(
+          create: (context) => GroceryBloc(),
+          child: const HomeScreenContent()),
     );
   }
 }
