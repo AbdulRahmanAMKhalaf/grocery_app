@@ -185,13 +185,13 @@ class HomeScreenContent extends StatelessWidget {
                           SizedBox(height: 3.h,),
                       itemCount: bloc.cartList.length),
                 ).animate().fade(duration: 500.ms).slideY(begin: 1,end: 0)
-                    : Container(
+                    : bloc.cartList.isEmpty?Container(
                   width: double.infinity,
-                  height: 8.h,
+                  height: 9.h,
                   decoration: BoxDecoration(
                     borderRadius:
                     BorderRadius.vertical(top: Radius.circular(20.px)),
-                    color: Colors.grey.shade800.withOpacity(0.85),
+                    color: Colors.transparent,
                   ),
                   child: ListView.separated(
                       scrollDirection: Axis.horizontal,
@@ -201,7 +201,31 @@ class HomeScreenContent extends StatelessWidget {
                             borderRadius: BorderRadius.circular(15.px),
                             child: Image(
                               fit: BoxFit.cover,
+
                               width: 12.w,
+                              image: AssetImage(bloc.cartList[index].image),
+                            ),
+                          ),
+                      separatorBuilder: (context, index) =>
+                          SizedBox(width: 3.w,),
+                      itemCount: bloc.cartList.length),
+                ):Container(
+                  width: double.infinity,
+                  height: 9.5.h,
+                  decoration: BoxDecoration(
+                    borderRadius:
+                    BorderRadius.vertical(top: Radius.circular(20.px)),
+                    color: Colors.grey.shade600.withOpacity(0.85),
+                  ),
+                  child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      padding: EdgeInsets.all( 12.px),
+                      itemBuilder: (context, index) =>
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(15.px),
+                            child: Image(
+                              fit: BoxFit.cover,
+                              width: 14.w,
                               image: AssetImage(bloc.cartList[index].image),
                             ),
                           ),
