@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:grocery_app/details_screen/details_Screen_Content.dart';
+import 'package:grocery_app/details_screen/details_screen_content.dart';
 
 class DetailsScreenView extends StatelessWidget {
   const DetailsScreenView({super.key,required this.index});
