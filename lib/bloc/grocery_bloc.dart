@@ -18,7 +18,6 @@ class GroceryBloc extends Bloc<GroceryEvent, GroceryState> {
   FutureOr<void> _addToCartEvent(AddToCartEvent event, Emitter<GroceryState> emit) {
   emit(AddLaodingState());
   cartList.add(CartModel(image: homeList[index].image, name: homeList[index].name));
-  print(cartList.toString());
   emit(AddSuccessfullyState());
 
   }

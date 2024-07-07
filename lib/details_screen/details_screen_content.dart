@@ -24,7 +24,7 @@ class DetailsScreenContent extends StatelessWidget {
           ListView(
             physics: const NeverScrollableScrollPhysics(),
             children: [
-              GreyContainer(index: index,),
+              GreyContainer(index: bloc.index,),
               Container(
                 height: 56.h,
                 width: double.infinity,
@@ -78,7 +78,7 @@ class DetailsScreenContent extends StatelessWidget {
                             height: 0.22.h),
                       ),
                       const Spacer(),
-                      AddToCartButton(bloc: bloc,),
+                      AddToCartButton(bloc: bloc,index: bloc.index,),
                     ],
                   ),
                 ),

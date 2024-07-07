@@ -3,8 +3,9 @@ import 'package:grocery_app/bloc/grocery_bloc.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class AddToCartButton extends StatelessWidget {
-  const AddToCartButton({super.key,required this.bloc});
+  const AddToCartButton({super.key,required this.bloc,required this.index});
 final GroceryBloc bloc;
+final int index;
   @override
   Widget build(BuildContext context) {
     return Padding(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grocery_app/bloc/grocery_bloc.dart';
+import 'package:grocery_app/home_model/home_model.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class IsNotDragContainerAndEmpty extends StatelessWidget {
@@ -7,22 +8,23 @@ class IsNotDragContainerAndEmpty extends StatelessWidget {
   final GroceryBloc bloc;
   @override
   Widget build(BuildContext context) {
-    return Hero(
-      tag: 'Item',
-      child: Container(
-        width: double.infinity,
-        height: 9.h,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.vertical(
-              top: Radius.circular(20.px)),
-          color: Colors.transparent,
-        ),
-        child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            padding: EdgeInsets.all(12.px),
-            itemBuilder: (context, index) => ClipRRect(
-              borderRadius:
-              BorderRadius.circular(15.px),
+    return Container(
+      width: double.infinity,
+      height: 9.h,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.vertical(
+            top: Radius.circular(20.px)),
+        color: Colors.transparent,
+      ),
+      child: ListView.separated(
+          scrollDirection: Axis.horizontal,
+          padding: EdgeInsets.all(12.px),
+          itemBuilder: (context, index) => ClipRRect(
+            borderRadius:
+            BorderRadius.circular(15.px),
+            child: Hero(
+              tag: '${homeList[index].name}cartTag',
+              transitionOnUserGestures: true,
               child: Image(
                 fit: BoxFit.cover,
                 width: 12.w,
@@ -30,12 +32,12 @@ class IsNotDragContainerAndEmpty extends StatelessWidget {
                     bloc.cartList[index].image),
               ),
             ),
-            separatorBuilder: (context, index) =>
-                SizedBox(
-                  width: 3.w,
-                ),
-            itemCount: bloc.cartList.length),
-      ),
+          ),
+          separatorBuilder: (context, index) =>
+              SizedBox(
+                width: 3.w,
+              ),
+          itemCount: bloc.cartList.length),
     );
   }
 }

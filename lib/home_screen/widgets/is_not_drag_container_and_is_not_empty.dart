@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:grocery_app/bloc/grocery_bloc.dart';
+import 'package:grocery_app/home_model/home_model.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class IsNotDragContainerAndIsNotEmpty extends StatelessWidget {
@@ -8,22 +9,23 @@ class IsNotDragContainerAndIsNotEmpty extends StatelessWidget {
 final GroceryBloc bloc;
   @override
   Widget build(BuildContext context) {
-    return Hero(
-      tag: 'Item',
-      child: Container(
-        width: double.infinity,
-        height: 9.5.h,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.vertical(
-              top: Radius.circular(20.px)),
-          color: Colors.grey.shade600.withOpacity(0.85),
-        ),
-        child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            padding: EdgeInsets.all(12.px),
-            itemBuilder: (context, index) => ClipRRect(
-              borderRadius:
-              BorderRadius.circular(15.px),
+    return Container(
+      width: double.infinity,
+      height: 9.5.h,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.vertical(
+            top: Radius.circular(20.px)),
+        color: Colors.grey.shade600.withOpacity(0.85),
+      ),
+      child: ListView.separated(
+          scrollDirection: Axis.horizontal,
+          padding: EdgeInsets.all(12.px),
+          itemBuilder: (context, index) => ClipRRect(
+            borderRadius:
+            BorderRadius.circular(15.px),
+            child: Hero(
+              tag: '${homeList[index].name}cartTag',
+              transitionOnUserGestures: true,
               child: Image(
                 fit: BoxFit.cover,
                 width: 14.w,
@@ -31,15 +33,15 @@ final GroceryBloc bloc;
                     bloc.cartList[index].image),
               ),
             ),
-            separatorBuilder: (context, index) =>
-                SizedBox(
-                  width: 3.w,
-                ),
-            itemCount: bloc.cartList.length),
-      )
-          .animate()
-          .fade(duration: 800.ms)
-          .slideY(begin: 1, end: 0),
-    );
+          ),
+          separatorBuilder: (context, index) =>
+              SizedBox(
+                width: 3.w,
+              ),
+          itemCount: bloc.cartList.length),
+    )
+        .animate()
+        .fade(duration: 800.ms)
+        .slideY(begin: 1, end: 0);
   }
 }

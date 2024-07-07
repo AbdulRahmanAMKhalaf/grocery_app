@@ -26,7 +26,7 @@ class HomeScreenContent extends StatelessWidget {
                 child: bloc.isDrag
                     ? DragContainer(bloc: bloc,)
                     : bloc.cartList.isEmpty
-                        ? IsNotDragContainerAndEmpty(bloc: bloc,)
+                        ? IsNotDragContainerAndEmpty(bloc: bloc)
                         : IsNotDragContainerAndIsNotEmpty(bloc: bloc,),
               ),
             );
