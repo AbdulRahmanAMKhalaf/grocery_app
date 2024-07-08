@@ -23,15 +23,11 @@ final GroceryBloc bloc;
           itemBuilder: (context, index) => ClipRRect(
             borderRadius:
             BorderRadius.circular(15.px),
-            child: Hero(
-              tag: '${homeList[index].name}cartTag',
-              transitionOnUserGestures: true,
-              child: Image(
-                fit: BoxFit.cover,
-                width: 14.w,
-                image: AssetImage(
-                    bloc.cartList[index].image),
-              ),
+            child: Image(
+              fit: BoxFit.cover,
+              width: 14.w,
+              image: AssetImage(
+                  bloc.cartList[index].image),
             ),
           ),
           separatorBuilder: (context, index) =>

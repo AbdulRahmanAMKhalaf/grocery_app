@@ -20,12 +20,8 @@ class GreyContainer extends StatelessWidget {
             child: SizedBox(
               width: 1000,
               height: 150,
-              child: Hero(
-                tag: '${homeList[index].name}cartTag',
-                transitionOnUserGestures: true,
-                child: Image(
-                  image: AssetImage(homeList[index].image),
-                ),
+              child: Image(
+                image: AssetImage(homeList[index].image),
               ),
             ),
           ).animate().shimmer().then().scale().shake(),
